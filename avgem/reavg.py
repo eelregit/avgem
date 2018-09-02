@@ -17,7 +17,7 @@ def _reavg(X0, Y0, X1, k, axis):
 
     return Y1
 
-def reavg(X0, Y0, X1, W0=None, W1=None, k=3, axis=-1):
+def reavg(X0, Y0, X1, W0=None, W1=None, k=3, axis=0):
     r"""Re-average an averaged function (with averaged weight) to different bins.
 
     .. math:: Y_{1,i} = \frac{Z(X_{1,i+1}) - Z(X_{1,i})}{W_{1,i}}
@@ -60,14 +60,13 @@ def reavg(X0, Y0, X1, W0=None, W1=None, k=3, axis=-1):
 
     Examples
     --------
-    >>> x = numpy.arange(10.)
+    >>> x = numpy.arange(10.)  # array([0., 1., ... 9.])
     >>> y = x
-    >>> X0 = x[::3]
-    >>> # Y0, W0 = avg(x, y, X0)
-    >>> Y0 = numpy.array([1.5, 4.5, 7.5])
+    >>> X0 = x[::3]  # array([0., 3., 6., 9.])
+    >>> Y0 = numpy.array([1.5, 4.5, 7.5])  # Y0, W0 = avg(x, y, X0)
     >>> W0 = numpy.array([3., 3., 3.])
 
-    >>> X1 = x[::2]
+    >>> X1 = x[::2]  # array([0., 2., 4., 6., 8.])
     >>> Y1, W1 = reavg(X0, Y0, X1)
     >>> Y1
     array([1., 3., 5., 7.])

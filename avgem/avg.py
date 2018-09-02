@@ -14,7 +14,7 @@ def _avg(x, y, X, k, axis):
 
     return Y
 
-def avg(x, y, X, w=None, wp=None, k=3, axis=-1):
+def avg(x, y, X, w=None, wp=None, k=3, axis=0):
     r"""Average a function (with weight) to bins.
 
     .. math:: Y_i = \frac{\int_{X_i}^{X_{i+1}} y(x) w'(x) dx}
@@ -47,9 +47,9 @@ def avg(x, y, X, w=None, wp=None, k=3, axis=-1):
 
     Examples
     --------
-    >>> x = numpy.arange(10.)
+    >>> x = numpy.arange(10.)  # array([0., 1., ... 9.])
     >>> y = x
-    >>> X = x[::3]
+    >>> X = x[::3]  # array([0., 3., 6., 9.])
     >>> Y, W = avg(x, y, X)
     >>> Y
     array([1.5, 4.5, 7.5])
