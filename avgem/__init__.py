@@ -3,4 +3,4 @@
 from .avg import avg
 from .reavg import reavg
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
