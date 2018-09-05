@@ -65,10 +65,19 @@ def avg(x, y, X, w=None, wp=None, k=3, axis=0):
     array([  9.,  63., 171.])
     """
 
-    assert all(numpy.diff(x) > 0), "must be strictly increasing"
-    assert all(numpy.diff(X) > 0), "must be strictly increasing"
-
+    x = numpy.asarray(x)
+    X = numpy.asarray(X)
     y = numpy.asarray(y)
+
+    if x.ndim != 1 or any(x[:-1] >= x[1:]):
+        raise ValueError("x must be 1-D and strictly increasing")
+    if X.ndim != 1 or any(X[:-1] >= X[1:]):
+        raise ValueError("X must be 1-D and strictly increasing")
+
+    if not -y.ndim <= axis < y.ndim:
+        raise ValueError("axis {} is out of bounds".format(axis))
+    if axis < 0:
+        axis += y.ndim
 
     to_axis = [1] * y.ndim
     to_axis[axis] = -1

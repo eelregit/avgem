@@ -80,10 +80,19 @@ def reavg(X0, Y0, X1, W0=None, W1=None, k=3, axis=0):
     array([1., 1., 1., 1.])
     """
 
-    assert all(numpy.diff(X0) > 0), "must be strictly increasing"
-    assert all(numpy.diff(X1) > 0), "must be strictly increasing"
-
+    X0 = numpy.asarray(X0)
+    X1 = numpy.asarray(X1)
     Y0 = numpy.asarray(Y0)
+
+    if X0.ndim != 1 or any(X0[:-1] >= X0[1:]):
+        raise ValueError("X0 must be 1-D and strictly increasing")
+    if X1.ndim != 1 or any(X1[:-1] >= X1[1:]):
+        raise ValueError("X1 must be 1-D and strictly increasing")
+
+    if not -Y0.ndim <= axis < Y0.ndim:
+        raise ValueError("axis {} is out of bounds".format(axis))
+    if axis < 0:
+        axis += Y0.ndim
 
     to_axis = [1] * Y0.ndim
     to_axis[axis] = -1
